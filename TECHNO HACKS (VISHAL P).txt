@@ -1,0 +1,183 @@
+TASK 1 
+   
+
+     LAB SETUP
+   
+   
+Set up  a virtual machine on your computer (virtual box / VM ware) and install kali Linux  in virtual machine in c program
+
+
+    
+     #include <stdio.h>
+#include <stdlib.h>
+
+void download_virtualbox() {
+    system("xdg-open https://www.virtualbox.org/wiki/Downloads");
+    printf("Please download and install VirtualBox manually.\n");
+}
+
+void download_kali_linux() {
+    system("xdg-open https://www.kali.org/get-kali/#kali-virtual-machines");
+    printf("Please download the Kali Linux ISO manually.\n");
+}
+
+void create_vm_instructions() {
+    printf("Instructions to create a new VM:\n");
+    printf("1. Open VirtualBox and click on 'New'.\n");
+    printf("2. Name your VM and select 'Linux' and 'Debian (64-bit)'.\n");
+    printf("3. Allocate memory (e.g., 2048 MB).\n");
+    printf("4. Create a virtual hard disk (e.g., 20 GB).\n");
+    printf("5. Start the VM and select the Kali Linux ISO as the startup disk.\n");
+    printf("6. Follow the installation prompts to complete the setup.\n");
+}
+
+int main() {
+    printf("Setting up a virtual machine for Kali Linux installation.\n");
+
+    printf("\nStep 1: Download VirtualBox\n");
+    download_virtualbox();
+
+    printf("\nStep 2: Download Kali Linux ISO\n");
+    download_kali_linux();
+
+    printf("\nStep 3: Create and Configure VM\n");
+    create_vm_instructions();
+
+    return 0;
+}
+
+
+
+
+TASK 2
+
+
+      INFORMATION GATHERING
+
+
+
+      
+
+      use maltego GUI based tool and gather information about the given target site  use website 
+
+
+
+
+        import pyautogui
+import time
+import os
+
+# Launch Maltego
+os.system("open /Applications/Maltego.app")  # Adjust the path to Maltego as necessary for your OS
+time.sleep(10)  # Wait for Maltego to open
+
+# Coordinates and actions for automation will vary based on your screen resolution and Maltego setup
+# Replace the following coordinates with the ones specific to your setup
+
+# Open a new graph
+pyautogui.hotkey('command', 'n')  # For MacOS, use 'ctrl' for Windows/Linux
+time.sleep(2)
+
+# Add a Website entity (coordinates need to be adjusted to your setup)
+pyautogui.click(100, 200)  # Click where the "Website" entity is located
+time.sleep(1)
+pyautogui.write('http://testphp.vulnweb.com/')
+pyautogui.press('enter')
+
+# Run transforms (example, coordinates need to be adjusted)
+pyautogui.rightClick(300, 300)  # Right-click on the Website entity
+time.sleep(1)
+pyautogui.click(350, 350)  # Click on "Run Transforms"
+time.sleep(1)
+pyautogui.click(400, 400)  # Select a specific transform (e.g., "To Domain")
+
+# Add more automation steps as needed to run additional transforms and gather information
+
+print("Automation script completed.")
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Call the Python script to automate Maltego
+    system("python3 maltego_automation.py");
+
+    printf("Maltego automation script executed.\n");
+    return 0;
+}
+
+
+TASK 6
+
+
+      BURP SUITE
+
+
+       study and use the burp suite tool
+
+
+
+
+
+     import requests
+import json
+
+# Replace these with your actual Burp Suite settings
+burp_api_url = "http://127.0.0.1:1337/v0.1"  # Default Burp Suite API URL
+api_key = "your_burp_api_key"
+
+# Function to get Burp Suite's health status
+def get_health_status():
+    url = f"{burp_api_url}/health"
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {api_key}'
+    }
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": response.status_code, "message": response.text}
+
+# Example function to start a new scan
+def start_scan(target_url):
+    url = f"{burp_api_url}/scan"
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {api_key}'
+    }
+    data = {
+        "urls": [target_url],
+        "application_logins": [],
+        "excluded_urls": [],
+        "scan_configuration": "basic"
+    }
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    if response.status_code == 201:
+        return response.json()
+    else:
+        return {"error": response.status_code, "message": response.text}
+
+# Check Burp Suite's health status
+health_status = get_health_status()
+print("Health Status:", health_status)
+
+# Start a scan on a target URL
+target_url = "http://example.com"
+scan_result = start_scan(target_url)
+print("Scan Result:", scan_result)
+
+from burp import IBurpExtender
+
+class BurpExtender(IBurpExtender):
+    def registerExtenderCallbacks(self, callbacks):
+        print("Hello, Burp Suite!")
+        callbacks.setExtensionName("My Python Extension")
+        # Your extension logic here
+       
+   
+
+
+
+
+
